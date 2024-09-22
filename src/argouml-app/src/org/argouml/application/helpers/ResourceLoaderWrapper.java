@@ -86,7 +86,7 @@ public final class ResourceLoaderWrapper {
     private static ImageIcon exceptionIcon;
     private static ImageIcon commentIcon;
 
-    private Hashtable<Class, Icon> iconCache = new Hashtable<Class, Icon>();
+    private HashMap<Class, Icon> iconCache = new HashMap<Class, Icon>();
 
     /**
      * Singleton implementation.
