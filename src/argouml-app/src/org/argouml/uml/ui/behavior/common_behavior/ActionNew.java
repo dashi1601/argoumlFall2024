@@ -53,12 +53,12 @@ import org.argouml.uml.ui.AbstractActionNewModelElement;
  *
  * @author Tom Morris
  */
-public class ActionNewException extends AbstractActionNewModelElement {
+public class ActionNew extends AbstractActionNewModelElement {
 
     /**
      * The constructor.
      */
-    public ActionNewException() {
+    public ActionNew() {
         super("button.new-exception");
         putValue(Action.NAME, Translator.localize("button.new-exception"));
     }
