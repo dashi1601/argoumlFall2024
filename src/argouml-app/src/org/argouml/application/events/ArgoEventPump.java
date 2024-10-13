@@ -462,10 +462,8 @@ public final class ArgoEventPump {
         }
 
         for (Pair pair : readOnlyListeners) {
-            if (pair.getEventType() == ArgoEventTypes.ANY_EVENT) {
-                handleFireEvent(event, pair.getListener());
-            } else if (pair.getEventType() == event.getEventStartRange()
-                    || pair.getEventType() == event.getEventType()) {
+            if (pair.getEventType() == ArgoEventTypes.ANY_EVENT || pair.getEventType() == event.getEventStartRange()
+            || pair.getEventType() == event.getEventType()) {
                 handleFireEvent(event, pair.getListener());
             }
         }
