@@ -48,6 +48,10 @@ package org.argouml.cognitive;
  */
 public class Translator {
 
+    private Translator(){
+        throw new IllegalStateException("Utility class");
+    }
+
     private static AbstractCognitiveTranslator translator;
 
     /**
