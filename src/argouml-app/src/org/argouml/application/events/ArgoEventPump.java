@@ -69,6 +69,8 @@ public final class ArgoEventPump {
      */
     private List<Pair> listeners;
 
+    private static final String INVALID_EVENT_MESSAGE = "Invalid event:";
+
     /**
      * The singleton.
      */
@@ -80,6 +82,7 @@ public final class ArgoEventPump {
     public static ArgoEventPump getInstance() {
         return SINGLETON;
     }
+
 
     /**
      * Constructor.
@@ -220,7 +223,7 @@ public final class ArgoEventPump {
             break;
 
 	default :
-            LOG.log(Level.SEVERE, "Invalid event:" + event.getEventType());
+            LOG.log(Level.SEVERE, INVALID_EVENT_MESSAGE + event.getEventType());
 	    break;
         }
     }
@@ -255,7 +258,7 @@ public final class ArgoEventPump {
             listener.diagramFontChanged(event);
             break;
         default :
-            LOG.log(Level.SEVERE, "Invalid event:" + event.getEventType());
+            LOG.log(Level.SEVERE, INVALID_EVENT_MESSAGE + event.getEventType());
             break;
         }
     }
@@ -279,7 +282,7 @@ public final class ArgoEventPump {
             break;
 
         default :
-            LOG.log(Level.SEVERE, "Invalid event:" + event.getEventType());
+            LOG.log(Level.SEVERE, INVALID_EVENT_MESSAGE + event.getEventType());
             break;
         }
     }
@@ -316,7 +319,7 @@ public final class ArgoEventPump {
             break;
 
         default :
-            LOG.log(Level.SEVERE, "Invalid event:" + event.getEventType());
+            LOG.log(Level.SEVERE, INVALID_EVENT_MESSAGE + event.getEventType());
             break;
         }
     }
@@ -340,7 +343,7 @@ public final class ArgoEventPump {
             break;
 
         default:
-            LOG.log(Level.SEVERE, "Invalid event:" + event.getEventType());
+            LOG.log(Level.SEVERE, INVALID_EVENT_MESSAGE + event.getEventType());
             break;
         }
     }
@@ -368,7 +371,7 @@ public final class ArgoEventPump {
             break;
 
         default:
-            LOG.log(Level.SEVERE, "Invalid event:" + event.getEventType());
+            LOG.log(Level.SEVERE, INVALID_EVENT_MESSAGE + event.getEventType());
             break;
         }
     }
