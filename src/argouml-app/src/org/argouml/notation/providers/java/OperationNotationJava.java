@@ -100,8 +100,8 @@ public class OperationNotationJava extends OperationNotation {
         String nameStr = null;
         boolean constructor = false;
 
-        Iterator its =
-            Model.getFacade().getStereotypes(modelElement).iterator();
+        // Extract stereotype information
+        Iterator its = Model.getFacade().getStereotypes(modelElement).iterator();
         String name = "";
         while (its.hasNext()) {
             Object o = its.next();
@@ -111,7 +111,7 @@ public class OperationNotationJava extends OperationNotation {
             }
         }
         if ("create".equals(name)) {
-            // constructor
+            // Constructor case
             nameStr = Model.getFacade().getName(
                     Model.getFacade().getOwner(modelElement));
             constructor = true;
@@ -129,74 +129,67 @@ public class OperationNotationJava extends OperationNotation {
         sb.append(NotationUtilityJava.generateScope(modelElement));
         sb.append(NotationUtilityJava.generateVisibility(modelElement));
 
-        // pick out return type
-        Collection returnParams =
-            Model.getCoreHelper().getReturnParameters(modelElement);
-        Object rp;
-        if (returnParams.size() == 0) {
-            rp = null;
-        } else {
-            rp = returnParams.iterator().next();
-        }
-        if (returnParams.size() > 1)  {
-            LOG.log(Level.WARNING,
-                    "Java generator only handles one return parameter"
-                    + " - Found " + returnParams.size()
-                    + " for " + Model.getFacade().getName(modelElement));
-        }
-        if (rp != null && !constructor) {
+        // Return type
+        appendReturnType(sb, modelElement, constructor);
+
+        // Name and parameters
+        sb.append(nameStr).append('(');
+        appendParameters(sb, modelElement);
+        sb.append(')');
+
+        // Exceptions
+        appendExceptions(sb, modelElement);
+
+        return sb.toString();
+    }
+
+    private void appendReturnType(StringBuffer sb, Object modelElement, boolean constructor) {
+        Collection returnParams = Model.getCoreHelper().getReturnParameters(modelElement);
+        if (!returnParams.isEmpty() && !constructor) {
+            Object rp = returnParams.iterator().next();
             Object returnType = Model.getFacade().getType(rp);
             if (returnType == null) {
                 sb.append("void ");
             } else {
-                sb.append(NotationUtilityJava.generateClassifierRef(returnType))
-                    .append(' ');
+                sb.append(NotationUtilityJava.generateClassifierRef(returnType)).append(' ');
             }
         }
+    }
 
-        // name and params
-        List params = new ArrayList(
-                Model.getFacade().getParameters(modelElement));
+    private void appendParameters(StringBuffer sb, Object modelElement) {
+        List params = new ArrayList(Model.getFacade().getParameters(modelElement));
+        Object rp = Model.getCoreHelper().getReturnParameters(modelElement).iterator().next();
         params.remove(rp);
 
-        sb.append(nameStr).append('(');
-
-        if (params != null) {
-            for (int i = 0; i < params.size(); i++) {
-                if (i > 0) {
-                    sb.append(", ");
-                }
-                sb.append(NotationUtilityJava.generateParameter(
-                        params.get(i)));
+        for (int i = 0; i < params.size(); i++) {
+            if (i > 0) {
+                sb.append(", ");
             }
+            sb.append(NotationUtilityJava.generateParameter(params.get(i)));
         }
+    }
 
-        sb.append(')');
-
+    private void appendExceptions(StringBuffer sb, Object modelElement) {
         Collection c = Model.getFacade().getRaisedSignals(modelElement);
         if (!c.isEmpty()) {
             Iterator it = c.iterator();
             boolean first = true;
             while (it.hasNext()) {
                 Object signal = it.next();
-
                 if (!Model.getFacade().isAException(signal)) {
                     continue;
                 }
-
                 if (first) {
                     sb.append(" throws ");
+                    first = false;
                 } else {
                     sb.append(", ");
                 }
-
                 sb.append(Model.getFacade().getName(signal));
-                first = false;
             }
         }
-
-        return sb.toString();
     }
+
 
     /**
      * Generates "synchronized" keyword for guarded operations.
