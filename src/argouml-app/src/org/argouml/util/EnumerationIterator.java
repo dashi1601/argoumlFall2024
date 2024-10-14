@@ -57,10 +57,14 @@ public class EnumerationIterator implements Iterator {
     public boolean hasNext() {
         return enumeration.hasMoreElements();
     }
-
+    
     public Object next() {
-        return enumeration.nextElement();
+    if (!enumeration.hasMoreElements()) {
+        throw new NoSuchElementException("No more elements in the collection.");
     }
+    return enumeration.nextElement();
+}
+
 
     public void remove() {
         throw new UnsupportedOperationException();
