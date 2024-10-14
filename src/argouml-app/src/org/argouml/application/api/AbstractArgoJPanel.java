@@ -211,32 +211,39 @@ public abstract class AbstractArgoJPanel extends JPanel
         // TODO: Once we have fixed all subclasses the title will
         // always be localized so this localization can be removed.
         f.setTitle(Translator.localize(title));
-        AbstractArgoJPanel newPanel = (AbstractArgoJPanel) clone();
+    
+        AbstractArgoJPanel newPanel = null;
+        try {
+            newPanel = (AbstractArgoJPanel) clone(); // Clone the current panel
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();  // Handle the exception
+        }
+        
         if (newPanel == null) {
-	    return null; //failed to clone
-	}
-
+            return null; // Failed to clone
+        }
+    
         // TODO: Once we have fixed all subclasses the title will
         // always be localized so this localization can be removed.
         newPanel.setTitle(Translator.localize(title));
-
+    
         f.getContentPane().add(newPanel, BorderLayout.CENTER);
         Rectangle bounds = getBounds();
         bounds.height += OVERLAPP * 2;
         f.setBounds(bounds);
-
+    
         Point loc = new Point(0, 0);
         SwingUtilities.convertPointToScreen(loc, this);
         loc.y -= OVERLAPP;
         f.setLocation(loc);
         f.setVisible(true);
-
+    
         if (tear && (getParent() instanceof JTabbedPane)) {
-	    ((JTabbedPane) getParent()).remove(this);
-	}
-
+            ((JTabbedPane) getParent()).remove(this);
+        }
+    
         return newPanel;
-
     }
+    
 
 }
