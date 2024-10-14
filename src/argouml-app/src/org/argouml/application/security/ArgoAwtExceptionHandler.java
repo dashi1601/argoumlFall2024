@@ -54,11 +54,12 @@ public final class ArgoAwtExceptionHandler {
     /**
      * The constructor.
      * 
-     * This constructor is intentionally left empty as no initialization is required.
+     * This constructor is not supported and should not be called.
      */
     public ArgoAwtExceptionHandler() {
-        //default constructor left empty on purpose
+        throw new UnsupportedOperationException("ArgoAwtExceptionHandler constructor is not supported.");
     }
+
 
     /**
      * Called from within {@link java.awt.EventDispatchThread}
