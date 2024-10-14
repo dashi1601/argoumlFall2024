@@ -53,9 +53,11 @@ public final class ArgoAwtExceptionHandler {
 
     /**
      * The constructor.
-     *
+     * 
+     * This constructor is intentionally left empty as no initialization is required.
      */
     public ArgoAwtExceptionHandler() {
+        //default constructor left empty on purpose
     }
 
     /**
