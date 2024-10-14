@@ -40,6 +40,8 @@ package org.argouml.util;
 
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.NoSuchElementException; // import
+
 
 /**
  * Iterator which wraps an Enumeration for transitional purposes.
