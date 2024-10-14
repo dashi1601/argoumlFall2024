@@ -140,21 +140,18 @@ public abstract class AbstractArgoJPanel extends JPanel
     }
 
     /**
-     * This is not a real clone since it doesn't copy anything from the object
-     * it is cloning. The {@link #spawn} method copies the title and in
-     * some cases also the Target.
+     * Creates a new instance of this panel by copying the properties of 
+     * the given instance.
+     * The {@link #spawn} method copies the title and in some cases also the Target.
      *
-     * @return the new object or null if not possible.
+     * @param other the panel to copy from.
      */
-    public Object clone() {
-        try {
-            return this.getClass().newInstance();
-        } catch (Exception ex) {
-            LOG.log(Level.SEVERE, "exception in clone()", ex);
-        }
-        return null;
+    public AbstractArgoJPanel(AbstractArgoJPanel other) {
+        this.title = other.title;
+        this.icon = other.icon;
+        this.orientation = other.orientation;
     }
-
+    
     /*
      * @see org.tigris.swidgets.Orientable#setOrientation(Orientation)
      */
