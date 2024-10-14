@@ -261,9 +261,9 @@ public class Main {
 
             //ToolTipManager.sharedInstance().setInitialDelay(500);
             ToolTipManager.sharedInstance().setDismissDelay(50000000);
-        } catch (Throwable t) {
+        } catch (Exception e) {
             try {
-                LOG.log(Level.SEVERE, "Fatal error on startup.  ArgoUML failed to start", t);
+                LOG.log(Level.SEVERE, "Fatal error on startup.  ArgoUML failed to start", e);
             } finally {
                 System.exit(1);
             }
