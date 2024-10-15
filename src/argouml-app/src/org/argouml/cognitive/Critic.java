@@ -72,7 +72,6 @@ import org.argouml.configuration.ConfigurationKey;
  * @author Jason Robbins
  */
 public class Critic
-    extends Observable
     implements Poster, Serializable {
 
     /**
@@ -633,8 +632,6 @@ public class Critic
 	if (!isActive) {
 	    Configuration.setBoolean(getCriticKey(), true);
             isActive = true;
-            setChanged();
-            notifyObservers(this);
 	}
     }
 
@@ -646,8 +643,6 @@ public class Critic
 	if (isActive) {
 	    Configuration.setBoolean(getCriticKey(), false);
             isActive = false;
-            setChanged();
-            notifyObservers(this);
 	}
     }
 
