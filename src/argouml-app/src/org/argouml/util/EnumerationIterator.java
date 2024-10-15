@@ -40,6 +40,8 @@ package org.argouml.util;
 
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.NoSuchElementException; // import
+
 
 /**
  * Iterator which wraps an Enumeration for transitional purposes.
@@ -57,10 +59,14 @@ public class EnumerationIterator implements Iterator {
     public boolean hasNext() {
         return enumeration.hasMoreElements();
     }
-
+    
     public Object next() {
-        return enumeration.nextElement();
+    if (!enumeration.hasMoreElements()) {
+        throw new NoSuchElementException("No more elements in the collection.");
     }
+    return enumeration.nextElement();
+}
+
 
     public void remove() {
         throw new UnsupportedOperationException();

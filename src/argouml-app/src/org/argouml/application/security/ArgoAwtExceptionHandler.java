@@ -53,10 +53,13 @@ public final class ArgoAwtExceptionHandler {
 
     /**
      * The constructor.
-     *
+     * 
+     * This constructor is not supported and should not be called.
      */
     public ArgoAwtExceptionHandler() {
+        throw new UnsupportedOperationException("ArgoAwtExceptionHandler constructor is not supported.");
     }
+
 
     /**
      * Called from within {@link java.awt.EventDispatchThread}

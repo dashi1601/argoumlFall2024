@@ -140,21 +140,18 @@ public abstract class AbstractArgoJPanel extends JPanel
     }
 
     /**
-     * This is not a real clone since it doesn't copy anything from the object
-     * it is cloning. The {@link #spawn} method copies the title and in
-     * some cases also the Target.
+     * Creates a new instance of this panel by copying the properties of 
+     * the given instance.
+     * The {@link #spawn} method copies the title and in some cases also the Target.
      *
-     * @return the new object or null if not possible.
+     * @param other the panel to copy from.
      */
-    public Object clone() {
-        try {
-            return this.getClass().newInstance();
-        } catch (Exception ex) {
-            LOG.log(Level.SEVERE, "exception in clone()", ex);
-        }
-        return null;
+    public AbstractArgoJPanel(AbstractArgoJPanel other) {
+        this.title = other.title;
+        this.icon = other.icon;
+        this.orientation = other.orientation;
     }
-
+    
     /*
      * @see org.tigris.swidgets.Orientable#setOrientation(Orientation)
      */
@@ -214,32 +211,39 @@ public abstract class AbstractArgoJPanel extends JPanel
         // TODO: Once we have fixed all subclasses the title will
         // always be localized so this localization can be removed.
         f.setTitle(Translator.localize(title));
-        AbstractArgoJPanel newPanel = (AbstractArgoJPanel) clone();
+    
+        AbstractArgoJPanel newPanel = null;
+        try {
+            newPanel = (AbstractArgoJPanel) clone(); // Clone the current panel
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();  // Handle the exception
+        }
+        
         if (newPanel == null) {
-	    return null; //failed to clone
-	}
-
+            return null; // Failed to clone
+        }
+    
         // TODO: Once we have fixed all subclasses the title will
         // always be localized so this localization can be removed.
         newPanel.setTitle(Translator.localize(title));
-
+    
         f.getContentPane().add(newPanel, BorderLayout.CENTER);
         Rectangle bounds = getBounds();
         bounds.height += OVERLAPP * 2;
         f.setBounds(bounds);
-
+    
         Point loc = new Point(0, 0);
         SwingUtilities.convertPointToScreen(loc, this);
         loc.y -= OVERLAPP;
         f.setLocation(loc);
         f.setVisible(true);
-
+    
         if (tear && (getParent() instanceof JTabbedPane)) {
-	    ((JTabbedPane) getParent()).remove(this);
-	}
-
+            ((JTabbedPane) getParent()).remove(this);
+        }
+    
         return newPanel;
-
     }
+    
 
 }
