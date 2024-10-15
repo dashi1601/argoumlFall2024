@@ -62,7 +62,7 @@ import org.argouml.configuration.ConfigurationKey;
 
 
 public final class Argo {
-
+    public static String height = "height";
     private static final String PROJECT = "project";
     private static final String MOST_RECENT = "mostrecent";
     /**
@@ -137,7 +137,7 @@ public final class Argo {
      * Key for screen height.
      */
     public static final ConfigurationKey KEY_SCREEN_HEIGHT =
-	Configuration.makeKey("screen", "height");
+  Configuration.makeKey("screen", height);
 
     /**
      * Key for screen extended state, i.e. NORMAL, MAXIMIZED;
@@ -186,13 +186,13 @@ public final class Argo {
      * Key for south pane height.
      */
     public static final ConfigurationKey KEY_SCREEN_SOUTH_HEIGHT =
-	Configuration.makeKey("screen", "south", "height");
+  Configuration.makeKey("screen", "south", height);
 
     /**
      * Key for north pane height.
      */
     public static final ConfigurationKey KEY_SCREEN_NORTH_HEIGHT =
-	Configuration.makeKey("screen", "north", "height");
+  Configuration.makeKey("screen", "north", height);
 
     /**
      * Key for theme.
