@@ -62,8 +62,6 @@ import org.argouml.configuration.ConfigurationKey;
 
 
 public final class Argo {
-
-
     private static final String PROJECT = "project";
     private static final String MOST_RECENT = "mostrecent";
     /**
